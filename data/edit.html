@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student</title>
+</head>
+<body>
+
+    <h2>Edit Student</h2>
+
+    <input type="text" id="rollno" placeholder="Enter Roll No">
+    <br><br>
+
+    <input type="text" id="name" placeholder="Enter Name">
+    <br><br>
+
+    <button onclick="updateStudent()">Update</button>
+
+    <script>
+
+        const apiURL = "http://localhost:3000/students";
+
+        // Get ID from URL
+        const params = new URLSearchParams(window.location.search);
+
+        const id = params.get("id");
+
+        // Load Student Data
+        fetch(`${apiURL}/${id}`)
+        .then(response => response.json())
+        .then(student => {
+
+            document.getElementById("rollno").value = student.rollno;
+            document.getElementById("name").value = student.name;
+
+        });
+
+        // Update Student
+        function updateStudent()
+        {
+            const rollno = document.getElementById("rollno").value;
+
+            const name = document.getElementById("name").value;
+
+            fetch(`${apiURL}/${id}`, {
+
+                method:"PUT",
+
+                headers:{
+                    "Content-Type":"application/json"
+                },
+
+                body: JSON.stringify({
+
+                    rollno: rollno,
+                    name: name
+
+                })
+
+            })
+            .then(response => response.json())
+            .then(data => {
+
+                alert("Student Updated");
+
+                window.location.href = "file1.html";
+
+            });
+
+        }
+
+    </script>
+
+</body>
+</html>

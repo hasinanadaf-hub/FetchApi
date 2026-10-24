@@ -1,0 +1,25 @@
+{
+  "students": [
+    {
+      "rollno": 101,
+      "name": "Hasina",
+      "id": "bmaluvkHe2k"
+    },
+    {
+      "rollno": 102,
+      "name": "Siraj",
+      "id": "QTlBOAI31YU"
+    },
+    {
+      "rollno": "103",
+      "name": "Anshul",
+      "id": "9yZs0UhIbaA"
+    },
+    {
+      "rollno": "104",
+      "name": "Madhuri",
+      "id": "WMa0U1bJV5s"
+    }
+  ]
+ 
+}

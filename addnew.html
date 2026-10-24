@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Student</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+        }
+
+        input{
+            margin: 5px;
+            padding: 8px;
+        }
+
+        button{
+            padding: 8px 15px;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h2>Add New Student</h2>
+
+    <form id="studentForm">
+
+        <input type="number" id="rollno" placeholder="Enter Roll No" required>
+
+        <input type="text" id="name" placeholder="Enter Name" required>
+
+        <button type="submit">Add Student</button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <script>
+
+        // JSON Server API URL
+        const apiURL = "http://localhost:3000/students";
+
+        // Form Submit Event
+        document.getElementById("studentForm")
+        .addEventListener("submit", function(e){
+
+            e.preventDefault();
+
+            // Get Input Values
+            const rollno = document.getElementById("rollno").value;
+            const name = document.getElementById("name").value;
+
+            // Create Student Object
+            const newStudent = {
+                rollno: rollno,
+                name: name
+            };
+
+            // POST Request
+            fetch(apiURL, {
+
+                method: "POST",
+
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(newStudent)
+
+            })
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                document.getElementById("message").innerHTML =
+                    "Student Added Successfully";
+
+                console.log(data);
+
+                // Clear Form
+                document.getElementById("studentForm").reset();
+
+            })
+
+            .catch(error => {
+
+                console.log("Error:", error);
+
+            });
+
+        });
+
+    </script>
+
+</body>
+</html>

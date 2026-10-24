@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch API with JSON Server</title>
+
+    <style>
+        table{
+            border-collapse: collapse;
+            width: 50%;
+        }
+
+        td, th{
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/addnew.html">Add New Student</a>
+
+    <h2>Student Data</h2>
+
+    <div id="result"></div>
+    
+    <script>
+
+        // URL of json-server
+        const apiURL = "http://localhost:3000/students";
+
+        function loadStudents()
+        {
+            fetch(apiURL)
+            .then(response => response.json())
+
+            .then(data => {
+
+                let output = `
+                    <table>
+                        <tr>
+                            <th>Roll No</th>
+                            <th>Name</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                `;
+
+                data.forEach(student => {
+
+                    output += `
+                        <tr>
+
+                            <td>${student.rollno}</td>
+
+                            <td>${student.name}</td>
+
+                            <td>
+                                <a href="/data/edit.html?id=${student.id}">
+                                    Edit
+                                </a>
+                            </td>
+
+                             <td>
+                                <a href="/data/delete.html?id=${student.id}">
+                                    Delete
+                                </a>
+                            </td>
+
+                        </tr>
+                    `;
+
+                });
+
+                output += `</table>`;
+
+                document.getElementById("result").innerHTML = output;
+
+            })
+
+            .catch(error => {
+
+                console.log("Error :", error);
+
+            });
+        }
+
+        loadStudents();
+
+        // Delete Student
+        
+
+    </script>
+
+</body>
+</html>
